@@ -1,3 +1,4 @@
+import PricingTable from "@/components/PricingTable";
 import { cn } from "utility/helper";
 
 function ColumnDisplay({
@@ -114,6 +115,7 @@ export default function Page() {
             </section>
             <section>
                 <h2 className="font-extrabold text-[17px]">报价说明:</h2>
+                <PricingTable />
             </section>
             <section>
                 <h4 className=" text-[13px]">注意事项：</h4>
