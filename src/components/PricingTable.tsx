@@ -77,28 +77,26 @@ const columns: ColumnDef<Pricing, any>[] = [
     columnHelper.accessor("serialNo", {
         header: () => "序号",
         cell: (info) => info.getValue(),
-        footer: (info) => info.column.id,
     }),
     columnHelper.accessor("serviceDescription", {
         header: () => "维护内容",
-        footer: (info) => info.column.id,
+        cell: (info) => <span className="flex">{info.getValue()}</span>,
     }),
     columnHelper.accessor("quantity", {
         header: () => "数量",
         cell: (info) => info.renderValue(),
-        footer: (info) => info.column.id,
     }),
     columnHelper.accessor("unitPrice", {
         header: () => "单价",
-        footer: (info) => info.column.id,
+        cell: (info) => info.getValue(),
     }),
     columnHelper.accessor("amount", {
         header: "金额",
-        footer: (info) => info.column.id,
+        cell: (info) => info.getValue(),
     }),
     columnHelper.accessor("remarks", {
         header: "备注",
-        footer: (info) => info.column.id,
+        cell: (info) => info.getValue(),
     }),
 ];
 
@@ -111,50 +109,59 @@ export default function PricingTable() {
         getCoreRowModel: getCoreRowModel(),
     });
     return (
-        <Table>
+        <Table className="rounded-md border border-black">
             <TableHeader>
-                <TableRow>
-                    {table.getHeaderGroups().map((headerGroup) => {
-                        return (
-                            <TableRow key={headerGroup.id}>
-                                {headerGroup.headers.map((header) => {
-                                    return (
-                                        <TableHead key={header.id}>
-                                            {header.isPlaceholder
-                                                ? null
-                                                : flexRender(
-                                                      header.column.columnDef
-                                                          .header,
-                                                      header.getContext()
-                                                  )}
-                                        </TableHead>
-                                    );
-                                })}
-                            </TableRow>
-                        );
-                    })}
-                </TableRow>
+                {table.getHeaderGroups().map((headerGroup) => {
+                    return (
+                        <TableRow key={headerGroup.id} className="">
+                            {headerGroup.headers.map((header) => {
+                                return (
+                                    <TableHead
+                                        key={header.id}
+                                        style={{ width: header.getSize() }}
+                                        className="border text-[13px] font-medium text-center border-black"
+                                    >
+                                        {header.isPlaceholder
+                                            ? null
+                                            : flexRender(
+                                                  header.column.columnDef
+                                                      .header,
+                                                  header.getContext()
+                                              )}
+                                    </TableHead>
+                                );
+                            })}
+                        </TableRow>
+                    );
+                })}
             </TableHeader>
             <TableBody>
-                {[].map((invoice) => (
-                    <TableRow key={invoice.invoice}>
-                        <TableCell className="font-medium">
-                            {invoice.invoice}
-                        </TableCell>
-                        <TableCell>{invoice.paymentStatus}</TableCell>
-                        <TableCell>{invoice.paymentMethod}</TableCell>
-                        <TableCell className="text-right">
-                            {invoice.totalAmount}
-                        </TableCell>
-                    </TableRow>
-                ))}
+                {table.getRowModel().rows.map((row) => {
+                    return (
+                        <TableRow key={row.id}>
+                            {row.getVisibleCells().map((cell) => {
+                                return (
+                                    <TableCell
+                                        key={cell.id}
+                                        className="text-[13px] text-center border border-black"
+                                    >
+                                        {flexRender(
+                                            cell.column.columnDef.cell,
+                                            cell.getContext()
+                                        )}
+                                    </TableCell>
+                                );
+                            })}
+                        </TableRow>
+                    );
+                })}
             </TableBody>
-            <TableFooter>
+            {/* <TableFooter>
                 <TableRow>
                     <TableCell colSpan={3}>Total</TableCell>
                     <TableCell className="text-right">$2,500.00</TableCell>
                 </TableRow>
-            </TableFooter>
+            </TableFooter> */}
         </Table>
     );
 }
