@@ -87,11 +87,11 @@ const columns: ColumnDef<Pricing, any>[] = [
         cell: (info) => info.renderValue(),
     }),
     columnHelper.accessor("unitPrice", {
-        header: () => "单价",
+        header: () => "单价 (未税)",
         cell: (info) => info.getValue(),
     }),
     columnHelper.accessor("amount", {
-        header: "金额",
+        header: "金额 (未税)",
         cell: (info) => info.getValue(),
     }),
     columnHelper.accessor("remarks", {
@@ -156,12 +156,38 @@ export default function PricingTable() {
                     );
                 })}
             </TableBody>
-            {/* <TableFooter>
-                <TableRow>
-                    <TableCell colSpan={3}>Total</TableCell>
-                    <TableCell className="text-right">$2,500.00</TableCell>
+            <TableFooter>
+                <TableRow className="bg-[#fff]">
+                    <TableCell
+                        colSpan={3}
+                        className="text-[13px] text-center border border-black"
+                    ></TableCell>
+                    <TableCell className="text-right border border-black">
+                        总价 (未税)
+                    </TableCell>
+                    <TableCell
+                        colSpan={2}
+                        className="text-left border border-black"
+                    >
+                        $2,500.00
+                    </TableCell>
                 </TableRow>
-            </TableFooter> */}
+                <TableRow className="bg-[#fff]">
+                    <TableCell
+                        colSpan={3}
+                        className="text-[13px] text-center border border-black"
+                    ></TableCell>
+                    <TableCell className="text-right border border-black">
+                        总价 (含税)
+                    </TableCell>
+                    <TableCell
+                        colSpan={2}
+                        className="text-left border border-black"
+                    >
+                        $2,500.00
+                    </TableCell>
+                </TableRow>
+            </TableFooter>
         </Table>
     );
 }

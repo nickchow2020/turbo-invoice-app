@@ -25,7 +25,7 @@ function ColumnDisplay({
 
 export default function Page() {
     return (
-        <main className="w-[210mm]">
+        <main className="w-[210mm] px-6">
             <section className="flex flex-col items-center justify-center">
                 <h1 className="font-extrabold text-2xl mb-1">
                     苏州慕翰电子科技有限公司
@@ -113,7 +113,7 @@ export default function Page() {
             <section>
                 <h2 className="font-extrabold text-[17px]">故障说明:</h2>
             </section>
-            <section>
+            <section className="mb-10">
                 <h2 className="font-extrabold text-[17px]">报价说明:</h2>
                 <PricingTable />
             </section>
