@@ -1,3 +1,4 @@
+import MaintenanceInstructionTable from "@/components/MaintenanceInstructionTable";
 import PricingTable from "@/components/PricingTable";
 import { cn } from "utility/helper";
 
@@ -112,6 +113,7 @@ export default function Page() {
             </section>
             <section>
                 <h2 className="font-extrabold text-[17px]">故障说明:</h2>
+                <MaintenanceInstructionTable />
             </section>
             <section className="mb-10">
                 <h2 className="font-extrabold text-[17px]">报价说明:</h2>

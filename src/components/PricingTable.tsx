@@ -109,7 +109,7 @@ export default function PricingTable() {
         getCoreRowModel: getCoreRowModel(),
     });
     return (
-        <Table className="rounded-md border border-black  leading-none">
+        <Table className="border border-black  leading-none">
             <TableHeader>
                 {table.getHeaderGroups().map((headerGroup) => {
                     return (
