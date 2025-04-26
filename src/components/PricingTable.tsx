@@ -109,7 +109,7 @@ export default function PricingTable() {
         getCoreRowModel: getCoreRowModel(),
     });
     return (
-        <Table className="rounded-md border border-black">
+        <Table className="rounded-md border border-black  leading-none">
             <TableHeader>
                 {table.getHeaderGroups().map((headerGroup) => {
                     return (
@@ -162,29 +162,26 @@ export default function PricingTable() {
                         colSpan={3}
                         className="text-[13px] text-center border border-black"
                     ></TableCell>
-                    <TableCell className="text-right border border-black">
+                    <TableCell className="text-[13px] text-center border border-black">
                         总价 (未税)
                     </TableCell>
                     <TableCell
                         colSpan={2}
-                        className="text-left border border-black"
+                        className="text-[13px] border border-black text-left"
                     >
-                        $2,500.00
+                        2,500.00
                     </TableCell>
                 </TableRow>
                 <TableRow className="bg-[#fff]">
-                    <TableCell
-                        colSpan={3}
-                        className="text-[13px] text-center border border-black"
-                    ></TableCell>
-                    <TableCell className="text-right border border-black">
+                    <TableCell colSpan={3}></TableCell>
+                    <TableCell className="text-[13px] text-center border border-black">
                         总价 (含税)
                     </TableCell>
                     <TableCell
                         colSpan={2}
-                        className="text-left border border-black"
+                        className="text-[13px]  border border-black text-left"
                     >
-                        $2,500.00
+                        2,500.00
                     </TableCell>
                 </TableRow>
             </TableFooter>
