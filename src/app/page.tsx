@@ -6,6 +6,13 @@ import PersonalInfo from "@/components/PersonalInfo";
 import PricingTable from "@/components/PricingTable";
 import { TitleInfo } from "@/components/TitleInfo";
 import { cn } from "utility/helper";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/components/ui/select";
 
 function InputColumn({
     className,
@@ -49,6 +56,71 @@ function InputColumn({
         </div>
     );
 }
+
+function SelectColumn({
+    title,
+    labelClassName,
+    selectorClassName,
+    placeholder,
+    className,
+    dropdownItems,
+}: {
+    className?: string;
+    labelClassName?: string;
+    selectorClassName?: string;
+    title: string;
+    value?: string;
+    placeholder?: string;
+    dropdownItems?: string[];
+}) {
+    return (
+        <div className={cn("flex items-center mb-3", className)}>
+            <Label
+                htmlFor={title}
+                className={cn(
+                    " whitespace-nowrap font-bold text-[14px]",
+                    labelClassName
+                )}
+            >
+                {title}
+            </Label>
+            <span className="mr-2">:</span>
+            <Select>
+                <SelectTrigger className={cn("w-[180px]", selectorClassName)}>
+                    <SelectValue placeholder={placeholder} />
+                </SelectTrigger>
+                <SelectContent>
+                    {dropdownItems?.map((item, index) => (
+                        <SelectItem key={index} value={item}>
+                            {item}
+                        </SelectItem>
+                    ))}
+                </SelectContent>
+            </Select>
+        </div>
+    );
+}
+
+const serviceItems = [
+    "设备维护",
+    "设备维修",
+    "设备保养",
+    "设备清洁",
+    "设备升级",
+    "设备更换",
+    "其他",
+];
+
+const currencyItems = [
+    "人民币",
+    "美元",
+    "欧元",
+    "英镑",
+    "日元",
+    "新加坡元",
+    "港币",
+    "澳大利亚元",
+];
 
 export default function Page() {
     return (
@@ -96,9 +168,16 @@ export default function Page() {
                     placeholder="输入联系人电话"
                 />
                 <InputColumn title="报价单号" placeholder="输入报价单号" />
-                <div>
-                    <Label>业务:</Label>
-                </div>
+                <SelectColumn
+                    title="业务"
+                    placeholder="请选择服务业务"
+                    dropdownItems={serviceItems}
+                />
+                <SelectColumn
+                    title="币别"
+                    placeholder="请选择币别"
+                    dropdownItems={currencyItems}
+                />
             </div>
         </main>
     );
