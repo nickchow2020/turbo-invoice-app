@@ -16,7 +16,12 @@ function ColumnDisplay({
     valueClassName?: string;
 }) {
     return (
-        <div className={cn("flex text-blue-800", className)}>
+        <div
+            className={cn(
+                "flex text-blue-800 items-center text-[13px]",
+                className
+            )}
+        >
             <div className={labelClassName}>{label}</div>
             <span className="font-medium">:</span>
             <div className={valueClassName}>{value}</div>
@@ -26,7 +31,7 @@ function ColumnDisplay({
 
 export default function Page() {
     return (
-        <main className="w-[210mm] px-6">
+        <main className="w-[210mm] px-6 py-4">
             <section className="flex flex-col items-center justify-center">
                 <h1 className="font-extrabold text-2xl mb-1">
                     苏州慕翰电子科技有限公司
@@ -65,21 +70,21 @@ export default function Page() {
                             />
                             <ColumnDisplay
                                 label="客户"
-                                value="peifang.zong@esamber.com"
+                                value="Công ty TNHH Compal (Việt Nam)"
                                 className="text-black mb-1"
                                 labelClassName="w-[70px]"
                                 valueClassName="ml-3"
                             />
                             <ColumnDisplay
                                 label="联系人"
-                                value="peifang.zong@esamber.com"
+                                value="宗培芳"
                                 className="text-black mb-1"
                                 labelClassName="w-[70px]"
                                 valueClassName="ml-3"
                             />
                             <ColumnDisplay
                                 label="电话"
-                                value="peifang.zong@esamber.com"
+                                value="18676737950"
                                 className="text-black"
                                 labelClassName="w-[70px]"
                                 valueClassName="ml-3"
@@ -88,21 +93,21 @@ export default function Page() {
                         <div>
                             <ColumnDisplay
                                 label="日期"
-                                value="peifang.zong@esamber.com"
+                                value="2025-04-23"
                                 className="text-black mb-1"
                                 labelClassName="w-[40px]"
                                 valueClassName="ml-3"
                             />
                             <ColumnDisplay
                                 label="业务"
-                                value="peifang.zong@esamber.com"
+                                value="设备维护"
                                 className="text-black mb-1"
                                 labelClassName="w-[40px]"
                                 valueClassName="ml-3"
                             />
                             <ColumnDisplay
                                 label="币别"
-                                value="peifang.zong@esamber.com"
+                                value="人民币"
                                 className="text-black"
                                 labelClassName="w-[40px]"
                                 valueClassName="ml-3"
@@ -111,11 +116,11 @@ export default function Page() {
                     </div>
                 </div>
             </section>
-            <section>
+            <section className="mb-3">
                 <h2 className="font-extrabold text-[17px]">故障说明:</h2>
                 <MaintenanceInstructionTable />
             </section>
-            <section className="mb-10">
+            <section className="mb-5">
                 <h2 className="font-extrabold text-[17px]">报价说明:</h2>
                 <PricingTable />
             </section>
