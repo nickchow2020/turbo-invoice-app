@@ -26,7 +26,7 @@ export function InputColumn({
             <Label
                 htmlFor={title}
                 className={cn(
-                    " whitespace-nowrap font-bold text-[14px]",
+                    " whitespace-nowrap font-bold text-[14px] w-15",
                     labelClassName
                 )}
             >

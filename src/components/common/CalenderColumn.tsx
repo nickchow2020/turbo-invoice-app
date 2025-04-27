@@ -35,13 +35,14 @@ export function CalenderColumn({
             <Label
                 htmlFor={title}
                 className={cn(
-                    " whitespace-nowrap font-bold text-[14px]",
+                    " whitespace-nowrap font-bold text-[14px] w-15",
                     labelClassName
                 )}
             >
                 {title}
             </Label>
             <span className="mr-2">:</span>
+
             <Popover>
                 <PopoverTrigger asChild>
                     <Button
