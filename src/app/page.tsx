@@ -6,14 +6,7 @@ import PersonalInfo from "@/components/PersonalInfo";
 import PricingTable from "@/components/PricingTable";
 import { TitleInfo } from "@/components/TitleInfo";
 import { cn } from "utility/helper";
-import {
-    DropdownMenu,
-    DropdownMenuCheckboxItem,
-    DropdownMenuContent,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/components/components/ui/dropdown-menu";
+
 function InputColumn({
     className,
     labelClassName,
