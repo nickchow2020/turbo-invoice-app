@@ -34,7 +34,7 @@ export default function Page() {
                     <Instruction />
                 </article>
                 <article>
-                    <h2 className="font-extrabold text-[17px] mb-4">
+                    <h2 className="font-extrabold text-[17px] mb-4 bg-blue-800 text-white px-2 py-1 rounded-md">
                         报价说明:
                     </h2>
                 </article>

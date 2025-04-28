@@ -5,7 +5,9 @@ import { TextareaColumn } from "./common/TextareaColumn";
 export default function Instruction() {
     return (
         <section>
-            <h2 className="font-extrabold text-[17px] mb-4">故障说明:</h2>
+            <h2 className="font-extrabold text-[17px] mb-4 bg-blue-800 text-white px-2 py-1 rounded-md">
+                故障说明:
+            </h2>
             <InputColumn
                 title="ID号"
                 placeholder="请输入ID号"

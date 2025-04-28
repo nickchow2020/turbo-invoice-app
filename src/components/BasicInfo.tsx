@@ -6,7 +6,9 @@ import { currencyItems, serviceItems } from "./lib/constant";
 export default function BasicInfo() {
     return (
         <section className="pr-10">
-            <h2 className="font-extrabold text-[17px] mb-4">基本信息:</h2>
+            <h2 className="font-extrabold text-[17px] mb-4 bg-blue-800 text-white px-2 py-1 rounded-md">
+                基本信息:
+            </h2>
             <InputColumn
                 title="报价单号"
                 placeholder="输入报价单号"
