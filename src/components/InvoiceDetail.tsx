@@ -54,6 +54,7 @@ export function InvoiceDetail() {
         fields: data,
         append,
         remove,
+        insert,
     } = useFieldArray<FormValues, "pricingInstructions">({
         control,
         name: "pricingInstructions",
@@ -68,7 +69,23 @@ export function InvoiceDetail() {
 
     const [currentInvoice, setCurrentInvoice] = useState<Invoice>();
 
+    const [editMode, setEditMode] = useState<boolean>(false);
+    const [invoiceIndex, setInvoiceIndex] = useState<number>(0);
+
     const columnHelper = createColumnHelper<Invoice>();
+    const handleRemove = (index: number) => {
+        remove(index);
+    };
+    const handleOnEdit = (index: number) => {
+        const invoice = data[index];
+        const updatedInvoice = {
+            ...invoice,
+            unitPrice: invoice.unitPrice.replace(currencySymbol, ""),
+            totalAmount: invoice.totalAmount.replace(currencySymbol, ""),
+        };
+        setCurrentInvoice(updatedInvoice);
+        setEditMode(true);
+    };
 
     const columns: ColumnDef<Invoice, any>[] = [
         columnHelper.accessor("id", {
@@ -104,12 +121,19 @@ export function InvoiceDetail() {
                         <Button
                             variant="ghost"
                             className="h-8 w-8 p-0 cursor-pointer"
+                            onClick={() => {
+                                handleOnEdit(row.index);
+                                setInvoiceIndex(row.index);
+                            }}
                         >
                             <FilePenLine size={16} />
                         </Button>
                         <Button
                             variant="ghost"
                             className="h-8 w-8 p-0 cursor-pointer"
+                            onClick={() => {
+                                handleRemove(row.index);
+                            }}
                         >
                             <Trash2 size={16} />
                         </Button>
@@ -133,7 +157,18 @@ export function InvoiceDetail() {
     };
 
     const handleAddInvoiceItem = () => {
-        if (currentInvoice) {
+        if (currentInvoice && editMode) {
+            remove(invoiceIndex);
+            insert(invoiceIndex, {
+                maintenanceTitle: currentInvoice.maintenanceTitle,
+                quantity: currentInvoice.quantity,
+                unitPrice: currencySymbol + "" + currentInvoice.unitPrice,
+                totalAmount: currencySymbol + "" + totalAmount(),
+                remarks: currentInvoice.remarks,
+            });
+            setCurrentInvoice(null);
+            setEditMode(false);
+        } else if (currentInvoice) {
             append({
                 maintenanceTitle: currentInvoice.maintenanceTitle,
                 quantity: currentInvoice.quantity,
@@ -142,6 +177,7 @@ export function InvoiceDetail() {
                 remarks: currentInvoice.remarks,
             });
             setCurrentInvoice(null);
+            setEditMode(false);
         } else {
             {
                 setCurrentInvoice({
@@ -164,6 +200,16 @@ export function InvoiceDetail() {
             };
         });
     };
+
+    const buttonTitle = currentInvoice ? (
+        editMode ? (
+            <span>保存报价说明</span>
+        ) : (
+            <span>完成报价说明</span>
+        )
+    ) : (
+        <span>添加报价说明</span>
+    );
 
     return (
         <div>
@@ -236,6 +282,7 @@ export function InvoiceDetail() {
                             onChange={handleOnInputChange}
                             name="quantity"
                             inputType="number"
+                            value={Number(currentInvoice?.quantity)}
                         />
                         <InputColumnRegular
                             title="单价"
@@ -244,6 +291,7 @@ export function InvoiceDetail() {
                             onChange={handleOnInputChange}
                             name="unitPrice"
                             inputType="number"
+                            value={Number(currentInvoice?.unitPrice)}
                         />
                         <InputColumnRegular
                             title="金额"
@@ -268,11 +316,7 @@ export function InvoiceDetail() {
                     onClick={handleAddInvoiceItem}
                     disabled={currentInvoice && !isValidInvoice(currentInvoice)}
                 >
-                    {currentInvoice ? (
-                        <span>保存报价说明</span>
-                    ) : (
-                        <span>添加报价说明</span>
-                    )}
+                    {buttonTitle}
                     <CirclePlus />
                 </Button>
             </div>
