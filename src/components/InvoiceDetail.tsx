@@ -23,7 +23,7 @@ import {
 import { Button } from "./components/ui/button";
 import { InputColumn } from "./common/InputColumn";
 
-type Invoice = {
+export type Invoice = {
     id: number;
     maintenanceTitle: string;
     quantity: string;

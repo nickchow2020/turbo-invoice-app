@@ -2,14 +2,34 @@
 import BasicInfo from "@/components/BasicInfo";
 import Footer from "@/components/Footer";
 import Instruction from "@/components/Instruction";
-import { InvoiceDetail } from "@/components/InvoiceDetail";
+import { Invoice, InvoiceDetail } from "@/components/InvoiceDetail";
 import MaintenanceInstructionTable from "@/components/MaintenanceInstructionTable";
 import PersonalInfo from "@/components/PersonalInfo";
 import PricingTable from "@/components/PricingTable";
 import { TitleInfo } from "@/components/TitleInfo";
 import { FormProvider, useForm } from "react-hook-form";
+
+type FormValues = {
+    quoteNo: number;
+    contactName: string;
+    name: string;
+    email: string;
+    phone: string;
+    service: string;
+    currencyType: string;
+    serviceDate: string;
+    quoteID: number;
+    clientOrganization: string;
+    deviceName: string;
+    deviceModel: string;
+    userFeedback: string;
+    repairServices: string;
+    deliveryTime: string;
+    pricingInstructions: Invoice[];
+};
+
 export default function Page() {
-    const methods = useForm();
+    const methods = useForm<FormValues>();
     return (
         <FormProvider {...methods}>
             <main className="flex">
