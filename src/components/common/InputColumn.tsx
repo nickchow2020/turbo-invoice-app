@@ -74,7 +74,7 @@ export function InputColumnRegular({
     labelClassName?: string;
     inputClassName?: string;
     title: string;
-    value?: string;
+    value?: number | string;
     defaultValue?: string;
     placeholder?: string;
     inputType?: string;

@@ -29,11 +29,23 @@ export type Invoice = {
     id?: number;
     maintenanceTitle: string;
     quantity: string;
-    unitPrice: number;
-    totalAmount: number;
+    unitPrice: string;
+    totalAmount: string;
     remarks: string;
     action?: string;
 };
+
+export function isValidInvoice(invoice: Invoice): boolean {
+    const isNonEmpty = (value: string) => value.trim() !== "";
+    const isNonNegativeNumberString = (value: string) =>
+        isNonEmpty(value) && !isNaN(+value) && +value >= 0;
+
+    return (
+        isNonEmpty(invoice.maintenanceTitle) &&
+        isNonNegativeNumberString(invoice.quantity) &&
+        isNonNegativeNumberString(invoice.unitPrice)
+    );
+}
 
 export function InvoiceDetail() {
     const { control } = useFormContext<FormValues>();
@@ -106,13 +118,19 @@ export function InvoiceDetail() {
         getCoreRowModel: getCoreRowModel(),
     });
 
+    const totalAmount: () => string = () => {
+        return (
+            Number(currentInvoice.unitPrice) * Number(currentInvoice.quantity)
+        ).toFixed(2);
+    };
+
     const handleAddInvoiceItem = () => {
         if (currentInvoice) {
             append({
                 maintenanceTitle: currentInvoice.maintenanceTitle,
                 quantity: currentInvoice.quantity,
-                unitPrice: Number(currentInvoice.unitPrice),
-                totalAmount: Number(currentInvoice.totalAmount),
+                unitPrice: currentInvoice.unitPrice,
+                totalAmount: totalAmount(),
                 remarks: currentInvoice.remarks,
             });
             setCurrentInvoice(null);
@@ -121,8 +139,8 @@ export function InvoiceDetail() {
                 setCurrentInvoice({
                     maintenanceTitle: "",
                     quantity: "",
-                    unitPrice: 0,
-                    totalAmount: 0,
+                    unitPrice: "",
+                    totalAmount: "",
                     remarks: "",
                 });
             }
@@ -131,10 +149,12 @@ export function InvoiceDetail() {
 
     const handleOnInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setCurrentInvoice((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
+        setCurrentInvoice((prev) => {
+            return {
+                ...prev,
+                [name]: value,
+            };
+        });
     };
 
     return (
@@ -222,6 +242,7 @@ export function InvoiceDetail() {
                             placeholder="输入金额"
                             inputClassName="w-70"
                             onChange={handleOnInputChange}
+                            value={totalAmount()}
                             name="totalAmount"
                             inputType="number"
                         />
@@ -238,6 +259,7 @@ export function InvoiceDetail() {
                 <Button
                     className="h-8 cursor-pointer"
                     onClick={handleAddInvoiceItem}
+                    disabled={currentInvoice && !isValidInvoice(currentInvoice)}
                 >
                     {currentInvoice ? (
                         <span>保存报价说明</span>
