@@ -1,6 +1,7 @@
 import BasicInfo from "@/components/BasicInfo";
 import Footer from "@/components/Footer";
 import Instruction from "@/components/Instruction";
+import { InvoiceDetail } from "@/components/InvoiceDetail";
 import MaintenanceInstructionTable from "@/components/MaintenanceInstructionTable";
 import PersonalInfo from "@/components/PersonalInfo";
 import PricingTable from "@/components/PricingTable";
@@ -34,9 +35,7 @@ export default function Page() {
                     <Instruction />
                 </article>
                 <article>
-                    <h2 className="font-extrabold text-[17px] mb-4 bg-blue-800 text-white px-2 py-1 rounded-md">
-                        报价说明:
-                    </h2>
+                    <InvoiceDetail />
                 </article>
             </div>
         </main>
