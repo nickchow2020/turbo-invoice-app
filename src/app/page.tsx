@@ -49,6 +49,9 @@ export default function Page() {
             userFeedback: "",
             repairServices: "",
             deliveryTime: "",
+
+            //pricing info
+            pricingInstructions: [],
         },
     });
     return (
@@ -82,7 +85,9 @@ export default function Page() {
                         <BasicInfo />
                         <Instruction />
                     </article>
-                    <article>{/* <InvoiceDetail /> */}</article>
+                    <article>
+                        <InvoiceDetail />
+                    </article>
                 </div>
             </main>
         </FormProvider>

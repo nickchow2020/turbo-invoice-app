@@ -57,3 +57,52 @@ export function InputColumn({
         />
     );
 }
+
+export function InputColumnRegular({
+    className,
+    labelClassName,
+    inputClassName,
+    title,
+    value,
+    defaultValue,
+    placeholder,
+    inputType = "text",
+    onChange,
+    name,
+}: {
+    className?: string;
+    labelClassName?: string;
+    inputClassName?: string;
+    title: string;
+    value?: string;
+    defaultValue?: string;
+    placeholder?: string;
+    inputType?: string;
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    name?: string;
+}) {
+    return (
+        <div className={cn("flex items-center mb-3", className)}>
+            <Label
+                htmlFor={title}
+                className={cn(
+                    " whitespace-nowrap font-bold text-[14px] w-15",
+                    labelClassName
+                )}
+            >
+                {title}
+            </Label>
+            <span>:</span>
+            <Input
+                value={value}
+                defaultValue={defaultValue}
+                className={cn("ml-2 w-40", inputClassName)}
+                placeholder={placeholder}
+                id={title}
+                type={inputType}
+                onChange={onChange}
+                name={name}
+            />
+        </div>
+    );
+}

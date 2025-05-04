@@ -8,7 +8,7 @@ import {
     useReactTable,
 } from "@tanstack/react-table";
 
-import React from "react";
+import React, { useState } from "react";
 
 import { CirclePlus, Trash2, FilePenLine } from "lucide-react";
 
@@ -21,12 +21,12 @@ import {
     TableRow,
 } from "@/components/components/ui/table";
 import { Button } from "./components/ui/button";
-import { InputColumn } from "./common/InputColumn";
+import { InputColumn, InputColumnRegular } from "./common/InputColumn";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { FormValues } from "app/page";
 
 export type Invoice = {
-    id: number;
+    id?: number;
     maintenanceTitle: string;
     quantity: string;
     unitPrice: number;
@@ -46,11 +46,14 @@ export function InvoiceDetail() {
         name: "pricingInstructions",
     });
 
+    const [currentInvoice, setCurrentInvoice] = useState<Invoice>();
+
     const columnHelper = createColumnHelper<Invoice>();
 
     const columns: ColumnDef<Invoice, any>[] = [
         columnHelper.accessor("id", {
             header: "序号",
+            cell: ({ row }) => row.index + 1,
             footer: (info) => info.column.id,
         }),
         columnHelper.accessor("maintenanceTitle", {
@@ -102,6 +105,37 @@ export function InvoiceDetail() {
         columns,
         getCoreRowModel: getCoreRowModel(),
     });
+
+    const handleAddInvoiceItem = () => {
+        if (currentInvoice) {
+            append({
+                maintenanceTitle: currentInvoice.maintenanceTitle,
+                quantity: currentInvoice.quantity,
+                unitPrice: Number(currentInvoice.unitPrice),
+                totalAmount: Number(currentInvoice.totalAmount),
+                remarks: currentInvoice.remarks,
+            });
+            setCurrentInvoice(null);
+        } else {
+            {
+                setCurrentInvoice({
+                    maintenanceTitle: "",
+                    quantity: "",
+                    unitPrice: 0,
+                    totalAmount: 0,
+                    remarks: "",
+                });
+            }
+        }
+    };
+
+    const handleOnInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setCurrentInvoice((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
 
     return (
         <div>
@@ -157,35 +191,59 @@ export function InvoiceDetail() {
                 </TableBody>
             </Table>
             <div className="flex flex-col gap-2 items-start mt-4">
-                <section className="grid grid-cols-2 gap-2 my-2">
-                    <InputColumn
-                        title="维护内容"
-                        placeholder="输入维护内容"
-                        inputClassName="w-70"
-                    />
-                    <InputColumn
-                        title="数量"
-                        placeholder="输入数量"
-                        inputClassName="w-70"
-                    />
-                    <InputColumn
-                        title="单价"
-                        placeholder="输入单价"
-                        inputClassName="w-70"
-                    />
-                    <InputColumn
-                        title="金额"
-                        placeholder="输入金额"
-                        inputClassName="w-70"
-                    />
-                    <InputColumn
-                        title="备注"
-                        placeholder="输入备注"
-                        inputClassName="w-70"
-                    />
-                </section>
-                <Button className="h-8 cursor-pointer">
-                    <span>添加项目</span>
+                {currentInvoice && (
+                    <section className="grid grid-cols-2 gap-2 my-2">
+                        <InputColumnRegular
+                            title="维护内容"
+                            placeholder="输入维护内容"
+                            inputClassName="w-70"
+                            value={currentInvoice.maintenanceTitle}
+                            onChange={handleOnInputChange}
+                            name="maintenanceTitle"
+                        />
+                        <InputColumnRegular
+                            title="数量"
+                            placeholder="输入数量"
+                            inputClassName="w-70"
+                            onChange={handleOnInputChange}
+                            name="quantity"
+                            inputType="number"
+                        />
+                        <InputColumnRegular
+                            title="单价"
+                            placeholder="输入单价"
+                            inputClassName="w-70"
+                            onChange={handleOnInputChange}
+                            name="unitPrice"
+                            inputType="number"
+                        />
+                        <InputColumnRegular
+                            title="金额"
+                            placeholder="输入金额"
+                            inputClassName="w-70"
+                            onChange={handleOnInputChange}
+                            name="totalAmount"
+                            inputType="number"
+                        />
+                        <InputColumnRegular
+                            title="备注"
+                            placeholder="输入备注"
+                            inputClassName="w-70"
+                            onChange={handleOnInputChange}
+                            name="remarks"
+                        />
+                    </section>
+                )}
+
+                <Button
+                    className="h-8 cursor-pointer"
+                    onClick={handleAddInvoiceItem}
+                >
+                    {currentInvoice ? (
+                        <span>保存报价说明</span>
+                    ) : (
+                        <span>添加报价说明</span>
+                    )}
                     <CirclePlus />
                 </Button>
             </div>
