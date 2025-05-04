@@ -164,7 +164,7 @@ export function InvoiceDetail() {
                 </TableBody>
             </Table>
             <div className="flex flex-col gap-2 items-start mt-4">
-                <section className="grid grid-cols-2 gap-3 my-2">
+                <section className="grid grid-cols-2 gap-2 my-2">
                     <InputColumn
                         title="维护内容"
                         placeholder="输入维护内容"
@@ -191,7 +191,7 @@ export function InvoiceDetail() {
                         inputClassName="w-70"
                     />
                 </section>
-                <Button className="h-8">
+                <Button className="h-8 cursor-pointer">
                     <span>添加项目</span>
                     <CirclePlus />
                 </Button>
