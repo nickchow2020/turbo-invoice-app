@@ -71,13 +71,7 @@ export function CalenderColumn({
                             <Calendar
                                 mode="single"
                                 selected={value}
-                                onSelect={(val) => {
-                                    const formattedDate = format(
-                                        val,
-                                        "yyyy-MM-dd"
-                                    );
-                                    onChange(formattedDate);
-                                }}
+                                onSelect={onChange}
                                 initialFocus
                             />
                         </PopoverContent>
