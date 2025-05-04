@@ -21,9 +21,10 @@ import {
     TableRow,
 } from "@/components/components/ui/table";
 import { Button } from "./components/ui/button";
-import { InputColumn, InputColumnRegular } from "./common/InputColumn";
-import { useFieldArray, useFormContext } from "react-hook-form";
+import { InputColumnRegular } from "./common/InputColumn";
+import { useFieldArray, useFormContext, useWatch } from "react-hook-form";
 import { FormValues } from "app/page";
+import { currencySymbols } from "./lib/constant";
 
 export type Invoice = {
     id?: number;
@@ -57,6 +58,13 @@ export function InvoiceDetail() {
         control,
         name: "pricingInstructions",
     });
+
+    const currencyType = useWatch({
+        control,
+        name: "currencyType",
+    });
+
+    const currencySymbol = currencySymbols[currencyType] || "¥";
 
     const [currentInvoice, setCurrentInvoice] = useState<Invoice>();
 
@@ -120,7 +128,7 @@ export function InvoiceDetail() {
 
     const totalAmount: () => string = () => {
         return (
-            Number(currentInvoice.unitPrice) * Number(currentInvoice.quantity)
+            Number(currentInvoice?.unitPrice) * Number(currentInvoice?.quantity)
         ).toFixed(2);
     };
 
@@ -129,8 +137,8 @@ export function InvoiceDetail() {
             append({
                 maintenanceTitle: currentInvoice.maintenanceTitle,
                 quantity: currentInvoice.quantity,
-                unitPrice: currentInvoice.unitPrice,
-                totalAmount: totalAmount(),
+                unitPrice: currencySymbol + "" + currentInvoice.unitPrice,
+                totalAmount: currencySymbol + "" + totalAmount(),
                 remarks: currentInvoice.remarks,
             });
             setCurrentInvoice(null);
@@ -242,9 +250,8 @@ export function InvoiceDetail() {
                             placeholder="输入金额"
                             inputClassName="w-70"
                             onChange={handleOnInputChange}
-                            value={totalAmount()}
+                            value={currencySymbol + "" + totalAmount()}
                             name="totalAmount"
-                            inputType="number"
                         />
                         <InputColumnRegular
                             title="备注"

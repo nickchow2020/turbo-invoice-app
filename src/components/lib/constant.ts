@@ -18,3 +18,25 @@ export const currencyItems = [
     "港币",
     "澳大利亚元",
 ];
+
+export const currencySymbols: Record<string, string> = {
+    人民币: "¥",   // Chinese Yuan (CNY)
+    美元: "$",    // US Dollar (USD)
+    欧元: "€",    // Euro (EUR)
+    英镑: "£",    // British Pound (GBP)
+    日元: "¥",    // Japanese Yen (JPY)
+    新加坡元: "$", // Singapore Dollar (SGD)
+    港币: "$",    // Hong Kong Dollar (HKD)
+    澳大利亚元: "$" // Australian Dollar (AUD)
+};
+
+export const currencyAbbreviations: Record<string, string> = {
+    人民币: "CNY",   
+    美元: "USD",    
+    欧元: "EUR",    
+    英镑: "GBP",    
+    日元: "JPY",   
+    新加坡元: "SGD", 
+    港币: "HKD",    
+    澳大利亚元: "AUD" 
+};

@@ -69,6 +69,7 @@ export function InputColumnRegular({
     inputType = "text",
     onChange,
     name,
+    disabled,
 }: {
     className?: string;
     labelClassName?: string;
@@ -80,6 +81,7 @@ export function InputColumnRegular({
     inputType?: string;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     name?: string;
+    disabled?: boolean;
 }) {
     return (
         <div className={cn("flex items-center mb-3", className)}>
@@ -102,6 +104,7 @@ export function InputColumnRegular({
                 type={inputType}
                 onChange={onChange}
                 name={name}
+                disabled={disabled}
             />
         </div>
     );
