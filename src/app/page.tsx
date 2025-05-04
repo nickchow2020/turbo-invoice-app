@@ -9,7 +9,7 @@ import PricingTable from "@/components/PricingTable";
 import { TitleInfo } from "@/components/TitleInfo";
 import { FormProvider, useForm } from "react-hook-form";
 
-type FormValues = {
+export type FormValues = {
     quoteNo: number;
     contactName: string;
     name: string;

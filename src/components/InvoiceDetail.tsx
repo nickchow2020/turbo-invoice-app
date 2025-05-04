@@ -22,6 +22,8 @@ import {
 } from "@/components/components/ui/table";
 import { Button } from "./components/ui/button";
 import { InputColumn } from "./common/InputColumn";
+import { useFieldArray, useFormContext } from "react-hook-form";
+import { FormValues } from "app/page";
 
 export type Invoice = {
     id: number;
@@ -34,24 +36,15 @@ export type Invoice = {
 };
 
 export function InvoiceDetail() {
-    const [data, setData] = React.useState<Invoice[]>([
-        {
-            id: 1,
-            maintenanceTitle: "更换主板",
-            quantity: "1",
-            unitPrice: 1000,
-            totalAmount: 1000,
-            remarks: "主板损坏",
-        },
-        {
-            id: 2,
-            maintenanceTitle: "更换硬盘",
-            quantity: "1",
-            unitPrice: 500,
-            totalAmount: 500,
-            remarks: "硬盘损坏",
-        },
-    ]);
+    const { control } = useFormContext<FormValues>();
+    const {
+        fields: data,
+        append,
+        remove,
+    } = useFieldArray<FormValues, "pricingInstructions">({
+        control,
+        name: "pricingInstructions",
+    });
 
     const columnHelper = createColumnHelper<Invoice>();
 
