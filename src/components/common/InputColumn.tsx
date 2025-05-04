@@ -1,6 +1,8 @@
+"use client";
 import { Input } from "@/components/components/ui/input";
 import { Label } from "@/components/components/ui/label";
 import { cn } from "../lib/utils";
+import { Controller } from "react-hook-form";
 
 export function InputColumn({
     className,
@@ -11,6 +13,8 @@ export function InputColumn({
     defaultValue,
     placeholder,
     inputType = "text",
+    name,
+    control,
 }: {
     className?: string;
     labelClassName?: string;
@@ -20,27 +24,36 @@ export function InputColumn({
     defaultValue?: string;
     placeholder?: string;
     inputType?: string;
+    name?: string;
+    control?: any;
 }) {
     return (
-        <div className={cn("flex items-center mb-3", className)}>
-            <Label
-                htmlFor={title}
-                className={cn(
-                    " whitespace-nowrap font-bold text-[14px] w-15",
-                    labelClassName
-                )}
-            >
-                {title}
-            </Label>
-            <span>:</span>
-            <Input
-                value={value}
-                defaultValue={defaultValue}
-                className={cn("ml-2 w-40", inputClassName)}
-                placeholder={placeholder}
-                id={title}
-                type={inputType}
-            />
-        </div>
+        <Controller
+            control={control}
+            name={name}
+            render={({ field: { onChange, value } }) => (
+                <div className={cn("flex items-center mb-3", className)}>
+                    <Label
+                        htmlFor={title}
+                        className={cn(
+                            " whitespace-nowrap font-bold text-[14px] w-15",
+                            labelClassName
+                        )}
+                    >
+                        {title}
+                    </Label>
+                    <span>:</span>
+                    <Input
+                        value={value}
+                        defaultValue={defaultValue}
+                        className={cn("ml-2 w-40", inputClassName)}
+                        placeholder={placeholder}
+                        id={title}
+                        type={inputType}
+                        onChange={onChange}
+                    />
+                </div>
+            )}
+        />
     );
 }

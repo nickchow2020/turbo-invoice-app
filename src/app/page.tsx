@@ -10,7 +10,7 @@ import { TitleInfo } from "@/components/TitleInfo";
 import { FormProvider, useForm } from "react-hook-form";
 
 export type FormValues = {
-    quoteNo: number;
+    quoteNo: string;
     contactName: string;
     name: string;
     email: string;
@@ -29,7 +29,18 @@ export type FormValues = {
 };
 
 export default function Page() {
-    const methods = useForm<FormValues>();
+    const methods = useForm<FormValues>({
+        defaultValues: {
+            quoteNo: "",
+            contactName: "宗培芳",
+            name: "宗培芳",
+            email: "peifang.zong@esamber.com",
+            phone: "18676737950",
+            service: "",
+            currencyType: "",
+            serviceDate: "",
+        },
+    });
     return (
         <FormProvider {...methods}>
             <main className="flex">
@@ -59,11 +70,9 @@ export default function Page() {
                 <div className="px-10 py-4 border-l-2 border-l-blue-800 min-w-[210mm]">
                     <article className="flex h-fit w-full">
                         <BasicInfo />
-                        <Instruction />
+                        {/* <Instruction /> */}
                     </article>
-                    <article>
-                        <InvoiceDetail />
-                    </article>
+                    <article>{/* <InvoiceDetail /> */}</article>
                 </div>
             </main>
         </FormProvider>

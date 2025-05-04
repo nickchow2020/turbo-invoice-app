@@ -13,13 +13,16 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/components/ui/popover";
-import { useState } from "react";
+
+import { Controller } from "react-hook-form";
 
 export function CalenderColumn({
     title,
     labelClassName,
     placeholder,
     className,
+    control,
+    name,
 }: {
     className?: string;
     labelClassName?: string;
@@ -27,48 +30,60 @@ export function CalenderColumn({
     title: string;
     value?: string;
     placeholder?: string;
+    name?: string;
+    control?: any;
 }) {
-    const [date, setDate] = useState<Date>();
-
     return (
-        <div className={cn("flex items-center mb-3", className)}>
-            <Label
-                htmlFor={title}
-                className={cn(
-                    " whitespace-nowrap font-bold text-[14px] w-15",
-                    labelClassName
-                )}
-            >
-                {title}
-            </Label>
-            <span className="mr-2">:</span>
-
-            <Popover>
-                <PopoverTrigger asChild>
-                    <Button
-                        variant={"outline"}
+        <Controller
+            control={control}
+            name={name}
+            render={({ field: { onChange, value } }) => (
+                <div className={cn("flex items-center mb-3", className)}>
+                    <Label
+                        htmlFor={title}
                         className={cn(
-                            "w-[280px] justify-start text-left font-normal",
-                            !date && "text-muted-foreground"
+                            " whitespace-nowrap font-bold text-[14px] w-15",
+                            labelClassName
                         )}
                     >
-                        <CalendarIcon />
-                        {date ? (
-                            format(date, "yyyy-MM-dd")
-                        ) : (
-                            <span>{placeholder}</span>
-                        )}
-                    </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0">
-                    <Calendar
-                        mode="single"
-                        selected={date}
-                        onSelect={setDate}
-                        initialFocus
-                    />
-                </PopoverContent>
-            </Popover>
-        </div>
+                        {title}
+                    </Label>
+                    <span className="mr-2">:</span>
+
+                    <Popover>
+                        <PopoverTrigger asChild>
+                            <Button
+                                variant={"outline"}
+                                className={cn(
+                                    "w-[280px] justify-start text-left font-normal",
+                                    !value && "text-muted-foreground"
+                                )}
+                            >
+                                <CalendarIcon />
+                                {value ? (
+                                    format(value, "yyyy-MM-dd")
+                                ) : (
+                                    <span>{placeholder}</span>
+                                )}
+                            </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0">
+                            <Calendar
+                                mode="single"
+                                selected={value}
+                                onSelect={(val) => {
+                                    const formattedDate = format(
+                                        val,
+                                        "yyyy-MM-dd"
+                                    );
+                                    onChange(formattedDate);
+                                }}
+                                initialFocus
+                            />
+                        </PopoverContent>
+                    </Popover>
+                </div>
+            )}
+        />
     );
 }
