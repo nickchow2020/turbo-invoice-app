@@ -8,6 +8,8 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/components/ui/table";
+import { FormValues } from "app/page";
+import { useFormContext, useWatch } from "react-hook-form";
 import { cn } from "utility/helper";
 
 const inspectionReport =
@@ -113,37 +115,54 @@ function RowContent({
 }
 
 export default function MaintenanceInstructionTable() {
+    const { control } = useFormContext<FormValues>();
+    const {
+        quoteID,
+        clientOrganization,
+        deviceName,
+        deviceModel,
+        userFeedback,
+        repairServices,
+        deliveryTime,
+    } = useWatch({
+        control,
+    });
+
     return (
         <Table className="border border-black leading-none">
             <TableBody>
                 <RowContent
                     headerTitle="设备名称"
-                    cellContent="焊炉轨道测试仪"
+                    cellContent={deviceName}
                     headerClassName="h-2"
+                    cellClassName="h-[30px]"
                 />
                 <RowContent
                     headerTitle="设备型号"
-                    cellContent="CBP100D"
+                    cellContent={deviceModel}
                     headerClassName="h-2"
                     ID={true}
-                    IDValue="600150"
+                    IDValue={quoteID}
                 />
                 <RowContent
                     headerTitle="用户反馈"
-                    cellContent="更换电池后无法使用 (寻常高温)"
+                    cellContent={userFeedback}
                     headerClassName="h-2"
+                    cellClassName="h-[30px]"
                 />
                 <RowContent
                     headerTitle="送修检测"
                     repairSubMission={true}
-                    repairSubMissionContent={inspectionReport}
-                    shippingDate="2023-10-09"
+                    repairSubMissionContent={repairServices}
+                    shippingDate={deliveryTime}
                     headerClassName="h-2"
+                    cellClassName="h-[30px]"
                 />
                 <RowContent
                     headerTitle="需求单位"
-                    cellContent="越南仁宝"
+                    cellContent={clientOrganization}
                     headerClassName="h-2"
+                    cellClassName="h-[30px]"
                 />
             </TableBody>
         </Table>
