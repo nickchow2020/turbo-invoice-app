@@ -20,6 +20,11 @@ import {
 import { useFormContext, useWatch } from "react-hook-form";
 import { FormValues } from "app/page";
 import { Invoice } from "./InvoiceDetail";
+import { currencySymbols } from "./lib/constant";
+
+const parseCurrency = (value: string): number => {
+    return parseFloat(value.replace(/[^\d.-]/g, "")) || 0;
+};
 
 type Pricing = {
     serialNo: number;
@@ -90,11 +95,11 @@ const columns: ColumnDef<Invoice, any>[] = [
         footer: (info) => info.column.id,
     }),
     columnHelper.accessor("unitPrice", {
-        header: "单价",
+        header: "单价 (未税)",
         footer: (info) => info.column.id,
     }),
     columnHelper.accessor("totalAmount", {
-        header: "金额",
+        header: "金额 (未税)",
         footer: (info) => info.column.id,
     }),
     columnHelper.accessor("remarks", {
@@ -116,6 +121,30 @@ export default function PricingTable() {
         columns,
         getCoreRowModel: getCoreRowModel(),
     });
+
+    const subtotal = data.reduce(
+        (sum, item) => sum + parseCurrency(item.totalAmount),
+        0
+    );
+
+    const currencyType = useWatch({
+        control,
+        name: "currencyType",
+    });
+
+    const currencySymbol = currencySymbols[currencyType] || "¥";
+
+    // Add 13% tax
+    const taxRate = 0.13;
+    const totalWithTax = subtotal * (1 + taxRate);
+
+    // Format both
+    const formattedSubtotal = subtotal.toFixed(2);
+    const formattedTotalWithTax = totalWithTax.toFixed(2);
+
+    const formattedSubtotalAmount = `${currencySymbol}${formattedSubtotal}`;
+    const formattedSubtotalAmountWithTax = `${currencySymbol}${formattedTotalWithTax}`;
+
     return (
         <Table className="border border-black  leading-none">
             <TableHeader>
@@ -177,7 +206,7 @@ export default function PricingTable() {
                         colSpan={2}
                         className="text-[13px] border border-black text-left"
                     >
-                        2,500.00
+                        {formattedSubtotalAmount}
                     </TableCell>
                 </TableRow>
                 <TableRow className="bg-[#fff]">
@@ -189,7 +218,7 @@ export default function PricingTable() {
                         colSpan={2}
                         className="text-[13px]  border border-black text-left"
                     >
-                        2,500.00
+                        {formattedSubtotalAmountWithTax}
                     </TableCell>
                 </TableRow>
             </TableFooter>
