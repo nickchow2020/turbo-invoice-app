@@ -55,7 +55,7 @@ export function CalenderColumn({
                             <Button
                                 variant={"outline"}
                                 className={cn(
-                                    "w-[280px] justify-start text-left font-normal",
+                                    "w-[280px] justify-start text-left font-normal border-purple-400 focus-visible:border-purple-400",
                                     !value && "text-muted-foreground"
                                 )}
                             >

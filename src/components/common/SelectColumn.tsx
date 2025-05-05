@@ -49,7 +49,10 @@ export function SelectColumn({
                     <span className="mr-2">:</span>
                     <Select value={value} onValueChange={onChange}>
                         <SelectTrigger
-                            className={cn("w-[180px]", selectorClassName)}
+                            className={cn(
+                                "w-[180px] border-purple-400 focus-visible:border-purple-400",
+                                selectorClassName
+                            )}
                         >
                             <SelectValue placeholder={placeholder} />
                         </SelectTrigger>

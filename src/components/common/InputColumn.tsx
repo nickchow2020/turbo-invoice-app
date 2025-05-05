@@ -46,7 +46,10 @@ export function InputColumn({
                     <Input
                         value={value}
                         defaultValue={defaultValue}
-                        className={cn("ml-2 w-40", inputClassName)}
+                        className={cn(
+                            "ml-2 w-40  border-purple-400 focus-visible:border-purple-400",
+                            inputClassName
+                        )}
                         placeholder={placeholder}
                         id={title}
                         type={inputType}
@@ -88,7 +91,7 @@ export function InputColumnRegular({
             <Label
                 htmlFor={title}
                 className={cn(
-                    " whitespace-nowrap font-bold text-[14px] w-15",
+                    " whitespace-nowrap font-bold text-[14px] w-15 ",
                     labelClassName
                 )}
             >
@@ -98,7 +101,10 @@ export function InputColumnRegular({
             <Input
                 value={value}
                 defaultValue={defaultValue}
-                className={cn("ml-2 w-40", inputClassName)}
+                className={cn(
+                    "ml-2 w-40 border-purple-400 focus-visible:border-purple-400",
+                    inputClassName
+                )}
                 placeholder={placeholder}
                 id={title}
                 type={inputType}

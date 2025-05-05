@@ -43,7 +43,10 @@ export function TextareaColumn({
                     </div>
                     <Textarea
                         placeholder={placeholder}
-                        className={cn("h-50", textareaClassName)}
+                        className={cn(
+                            "h-50 border-purple-400 focus-visible:border-purple-400",
+                            textareaClassName
+                        )}
                         value={value}
                         onChange={onChange}
                     />

@@ -312,7 +312,7 @@ export function InvoiceDetail() {
                 )}
 
                 <Button
-                    className="h-8 cursor-pointer"
+                    className="h-8 cursor-pointer bg-purple-400 hover:bg-purple-600 hover:text-white font-bold py-2 px-4 mb-5 text-white"
                     onClick={handleAddInvoiceItem}
                     disabled={currentInvoice && !isValidInvoice(currentInvoice)}
                 >
