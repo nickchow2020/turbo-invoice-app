@@ -11,12 +11,6 @@ export const serviceItems = [
 export const currencyMap = {
     人民币: "人民币",
     美元: "美元",
-    欧元: "欧元",
-    英镑: "英镑",
-    日元: "日元",
-    新加坡元: "新加坡元",
-    港币: "港币",
-    澳大利亚元: "澳大利亚元",
 };
 
 export const booleanOptionsMap = {
@@ -27,12 +21,6 @@ export const booleanOptionsMap = {
 export const currencyItems = [
     { label: "人民币", value: "人民币" },
     { label: "美元", value: "美元" },
-    { label: "欧元", value: "欧元" },
-    { label: "英镑", value: "英镑" },
-    { label: "日元", value: "日元" },
-    { label: "新加坡元", value: "新加坡元" },
-    { label: "港币", value: "港币" },
-    { label: "澳大利亚元", value: "澳大利亚元" },
 ];
 
 

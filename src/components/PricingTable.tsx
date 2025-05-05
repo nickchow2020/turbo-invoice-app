@@ -20,7 +20,11 @@ import {
 import { useFormContext, useWatch } from "react-hook-form";
 import { FormValues } from "app/page";
 import { Invoice } from "./InvoiceDetail";
-import { booleanOptionsMap, currencySymbols } from "./lib/constant";
+import {
+    booleanOptionsMap,
+    currencyAbbreviations,
+    currencySymbols,
+} from "./lib/constant";
 
 const parseCurrency = (value: string): number => {
     return parseFloat(value.replace(/[^\d.-]/g, "")) || 0;
@@ -150,6 +154,9 @@ export default function PricingTable() {
 
     const totalWithTax = subtotal * (1 + taxRate);
 
+    const currencyAbbreviationsName =
+        currencyAbbreviations[currencyType] || "CNY";
+
     // Format both
     const formattedSubtotal = subtotal.toFixed(2);
     const formattedTotalWithTax = totalWithTax.toFixed(2);
@@ -212,7 +219,7 @@ export default function PricingTable() {
                         className="text-[13px] text-center border border-black"
                     ></TableCell>
                     <TableCell className="text-[13px] text-left border border-black">
-                        总价 (未税)
+                        总价 {currencyAbbreviationsName} (未税)
                     </TableCell>
                     <TableCell
                         colSpan={2}
@@ -225,8 +232,8 @@ export default function PricingTable() {
                     <TableCell colSpan={3}></TableCell>
                     <TableCell className="text-[13px] text-left border border-black">
                         {isFctTax
-                            ? "总价 (含税 13% + 5%FCT)"
-                            : "总价 (含税 13%)"}
+                            ? `总价 ${currencyAbbreviationsName} (含税 13% + 5%FCT)`
+                            : `总价 ${currencyAbbreviationsName} (含税 13%)`}
                     </TableCell>
                     <TableCell
                         colSpan={2}

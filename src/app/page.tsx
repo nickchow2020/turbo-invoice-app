@@ -41,7 +41,7 @@ export default function Page() {
             phone: "18676737950",
             clientName: "",
             service: "",
-            currencyType: "",
+            currencyType: "人民币",
             serviceDate: "",
 
             //instruction info
