@@ -11,7 +11,7 @@ import {
 import { FormValues } from "app/page";
 import { useFormContext, useWatch } from "react-hook-form";
 import { cn } from "utility/helper";
-
+import { format } from "date-fns";
 const inspectionReport =
     "主机、主架外观检查：\n1. 主架外观有磕碰、划痕及脏污\n2. 主架搭边已脱落，延长杆处有变形现象\n\n主机功能检测:\n1. 按键启动仪器各指示灯无指示\n2. 连接电脑时，电源指示灯无指示，数据条灯无指示\n3. 主板曾超温处于116℃或更高, 电池已丢失\n4. 装上电池后无法进入测试记录，且无法删除数据\n5. 经检测，存储系统芯片损坏导致\n6. 经更换存储系统芯片测试验证后，变形模块已损坏，导致数据异常";
 
@@ -154,7 +154,9 @@ export default function MaintenanceInstructionTable() {
                     headerTitle="送修检测"
                     repairSubMission={true}
                     repairSubMissionContent={repairServices}
-                    shippingDate={deliveryTime}
+                    shippingDate={
+                        deliveryTime ? format(deliveryTime, "yyyy-MM-dd") : ""
+                    }
                     headerClassName="h-2"
                     cellClassName="h-[30px]"
                 />
