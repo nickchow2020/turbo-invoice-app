@@ -26,6 +26,7 @@ export type FormValues = {
     userFeedback: string;
     repairServices: string;
     deliveryTime: string;
+    fctTax: boolean;
     pricingInstructions: Invoice[];
 };
 
@@ -51,6 +52,9 @@ export default function Page() {
             userFeedback: "",
             repairServices: "",
             deliveryTime: "",
+
+            //tax info
+            fctTax: false,
 
             //pricing info
             pricingInstructions: [],

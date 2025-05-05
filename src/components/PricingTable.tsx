@@ -132,10 +132,20 @@ export default function PricingTable() {
         name: "currencyType",
     });
 
+    const fctTax = useWatch({
+        control,
+        name: "fctTax",
+    });
+
     const currencySymbol = currencySymbols[currencyType] || "¥";
 
     // Add 13% tax
-    const taxRate = 0.13;
+    let taxRate = 0.13;
+
+    if (fctTax) {
+        taxRate += 0.05; // Add 5% FCT tax if applicable
+    }
+
     const totalWithTax = subtotal * (1 + taxRate);
 
     // Format both
@@ -199,7 +209,7 @@ export default function PricingTable() {
                         colSpan={3}
                         className="text-[13px] text-center border border-black"
                     ></TableCell>
-                    <TableCell className="text-[13px] text-center border border-black">
+                    <TableCell className="text-[13px] text-left border border-black">
                         总价 (未税)
                     </TableCell>
                     <TableCell
@@ -211,8 +221,8 @@ export default function PricingTable() {
                 </TableRow>
                 <TableRow className="bg-[#fff]">
                     <TableCell colSpan={3}></TableCell>
-                    <TableCell className="text-[13px] text-center border border-black">
-                        总价 (含税)
+                    <TableCell className="text-[13px] text-left border border-black">
+                        {fctTax ? "总价 (含税 13% + 5%FCT)" : "总价 (含税 13%)"}
                     </TableCell>
                     <TableCell
                         colSpan={2}
