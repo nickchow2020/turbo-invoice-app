@@ -17,7 +17,9 @@ import {
     TableRow,
 } from "@/components/components/ui/table";
 
-import { useState } from "react";
+import { useFormContext, useWatch } from "react-hook-form";
+import { FormValues } from "app/page";
+import { Invoice } from "./InvoiceDetail";
 
 type Pricing = {
     serialNo: number;
@@ -71,40 +73,46 @@ const defaultData: Pricing[] = [
     },
 ];
 
-const columnHelper = createColumnHelper<Pricing>();
+const columnHelper = createColumnHelper<Invoice>();
 
-const columns: ColumnDef<Pricing, any>[] = [
-    columnHelper.accessor("serialNo", {
-        header: () => "序号",
-        cell: (info) => info.getValue(),
+const columns: ColumnDef<Invoice, any>[] = [
+    columnHelper.accessor("id", {
+        header: "序号",
+        cell: ({ row }) => row.index + 1,
+        footer: (info) => info.column.id,
     }),
-    columnHelper.accessor("serviceDescription", {
-        header: () => "维护内容",
-        cell: (info) => <span className="flex">{info.getValue()}</span>,
+    columnHelper.accessor("maintenanceTitle", {
+        header: "维护内容",
+        footer: (info) => info.column.id,
     }),
     columnHelper.accessor("quantity", {
-        header: () => "数量",
-        cell: (info) => info.renderValue(),
+        header: "数量",
+        footer: (info) => info.column.id,
     }),
     columnHelper.accessor("unitPrice", {
-        header: () => "单价 (未税)",
-        cell: (info) => info.getValue(),
+        header: "单价",
+        footer: (info) => info.column.id,
     }),
-    columnHelper.accessor("amount", {
-        header: "金额 (未税)",
-        cell: (info) => info.getValue(),
+    columnHelper.accessor("totalAmount", {
+        header: "金额",
+        footer: (info) => info.column.id,
     }),
     columnHelper.accessor("remarks", {
         header: "备注",
-        cell: (info) => info.getValue(),
+        footer: (info) => info.column.id,
     }),
 ];
 
 export default function PricingTable() {
-    const [fromData, setFromData] = useState<Pricing[]>(defaultData);
+    const { control } = useFormContext<FormValues>();
+
+    const data = useWatch({
+        control,
+        name: "pricingInstructions",
+    });
 
     const table = useReactTable({
-        data: fromData,
+        data,
         columns,
         getCoreRowModel: getCoreRowModel(),
     });
