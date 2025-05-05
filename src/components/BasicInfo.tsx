@@ -34,6 +34,13 @@ export default function BasicInfo() {
                 name="name"
             />
             <InputColumn
+                title="客户"
+                placeholder="输入客户名称"
+                inputClassName="w-70"
+                control={control}
+                name="clientName"
+            />
+            <InputColumn
                 title="邮箱"
                 placeholder="输入联系人电话"
                 inputType="email"

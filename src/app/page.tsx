@@ -15,6 +15,7 @@ export type FormValues = {
     name: string;
     email: string;
     phone: string;
+    clientName: string;
     service: string;
     currencyType: string;
     serviceDate: string;
@@ -37,6 +38,7 @@ export default function Page() {
             name: "宗培芳",
             email: "peifang.zong@esamber.com",
             phone: "18676737950",
+            clientName: "",
             service: "",
             currencyType: "",
             serviceDate: "",
