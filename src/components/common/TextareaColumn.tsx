@@ -44,7 +44,7 @@ export function TextareaColumn({
                     <Textarea
                         placeholder={placeholder}
                         className={cn(
-                            "h-50 border-purple-400 focus-visible:border-purple-400",
+                            "h-50 border-purple-400 focus-visible:border-purple-400 ",
                             textareaClassName
                         )}
                         value={value}

@@ -50,7 +50,7 @@ export function SelectColumn({
                     <Select value={value} onValueChange={onChange}>
                         <SelectTrigger
                             className={cn(
-                                "w-[180px] border-purple-400 focus-visible:border-purple-400",
+                                "w-[180px] border-purple-400 focus-visible:border-purple-400 cursor-pointer",
                                 selectorClassName
                             )}
                         >
