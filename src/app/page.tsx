@@ -11,7 +11,7 @@ import { useRef } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useReactToPrint } from "react-to-print";
 import { Button } from "@/components/components/ui/button";
-import { Printer, Download } from "lucide-react";
+import { Printer, Download, RotateCcw } from "lucide-react";
 
 export type FormValues = {
     quoteNo: string;
@@ -108,6 +108,13 @@ export default function Page() {
                         <article className="flex h-fit w-full">
                             <BasicInfo />
                             <Instruction />
+                            <Button
+                                className="h-8 cursor-pointer bg-purple-400 hover:bg-purple-600 hover:text-white font-bold py-2 px-4 mb-5 text-white ml-auto"
+                                onClick={() => methods.reset()}
+                            >
+                                <RotateCcw size={16} />
+                                重置
+                            </Button>
                         </article>
                         <article>
                             <InvoiceDetail />
