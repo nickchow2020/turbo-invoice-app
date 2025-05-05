@@ -7,6 +7,23 @@ export const serviceItems = [
     { label: "设备更换", value: "设备更换" },
     { label: "其他", value: "其他" },
 ];
+
+export const currencyMap = {
+    人民币: "人民币",
+    美元: "美元",
+    欧元: "欧元",
+    英镑: "英镑",
+    日元: "日元",
+    新加坡元: "新加坡元",
+    港币: "港币",
+    澳大利亚元: "澳大利亚元",
+};
+
+export const booleanOptionsMap = {
+    true: "true" ,
+    false: "false",
+}
+
 export const currencyItems = [
     { label: "人民币", value: "人民币" },
     { label: "美元", value: "美元" },
@@ -17,6 +34,8 @@ export const currencyItems = [
     { label: "港币", value: "港币" },
     { label: "澳大利亚元", value: "澳大利亚元" },
 ];
+
+
 
 export const fctTaxOption = [
     { label: "包含FCT税", value: "true" },

@@ -20,7 +20,7 @@ import {
 import { useFormContext, useWatch } from "react-hook-form";
 import { FormValues } from "app/page";
 import { Invoice } from "./InvoiceDetail";
-import { currencySymbols } from "./lib/constant";
+import { booleanOptionsMap, currencySymbols } from "./lib/constant";
 
 const parseCurrency = (value: string): number => {
     return parseFloat(value.replace(/[^\d.-]/g, "")) || 0;
@@ -142,7 +142,7 @@ export default function PricingTable() {
     // Add 13% tax
     let taxRate = 0.13;
 
-    const isFctTax = fctTax === "true" ? true : false;
+    const isFctTax = fctTax === booleanOptionsMap.true;
 
     if (isFctTax) {
         taxRate += 0.05; // Add 5% FCT tax if applicable
