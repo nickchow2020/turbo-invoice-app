@@ -71,10 +71,11 @@ export default function Page() {
         <FormProvider {...methods}>
             <div>
                 <Button
-                    className="w-full rounded-none cursor-pointer bg-purple-400 hover:bg-purple-600 hover:text-white font-bold py-2 px-4 mb-5 text-white"
+                    className="w-full rounded-none cursor-pointer bg-purple-400 hover:bg-purple-600 hover:text-white font-bold py-2 px-4 mb-5 text-white sticky top-0"
                     onClick={reactToPrintFn}
                     variant="outline"
                     size="lg"
+                    disabled={!methods.formState.isDirty}
                 >
                     <Printer className="mr-2" size={16} /> 打印 / 下载
                     <Download className="ml-2" size={16} />
