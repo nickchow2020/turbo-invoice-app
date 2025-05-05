@@ -7,7 +7,11 @@ import MaintenanceInstructionTable from "@/components/MaintenanceInstructionTabl
 import PersonalInfo from "@/components/PersonalInfo";
 import PricingTable from "@/components/PricingTable";
 import { TitleInfo } from "@/components/TitleInfo";
+import { useRef } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { useReactToPrint } from "react-to-print";
+import { Button } from "@/components/components/ui/button";
+import { Printer, Download } from "lucide-react";
 
 export type FormValues = {
     quoteNo: string;
@@ -60,42 +64,56 @@ export default function Page() {
             pricingInstructions: [],
         },
     });
+
+    const contentRef = useRef<HTMLDivElement>(null);
+    const reactToPrintFn = useReactToPrint({ contentRef });
     return (
         <FormProvider {...methods}>
-            <main className="flex">
-                <div className="w-[210mm] px-6 py-4">
-                    <section className="flex flex-col items-center justify-center">
-                        <TitleInfo />
-                    </section>
-                    <section>
-                        <PersonalInfo />
-                    </section>
-                    <section className="mb-3">
-                        <h2 className="font-extrabold text-[17px]">
-                            故障说明:
-                        </h2>
-                        <MaintenanceInstructionTable />
-                    </section>
-                    <section className="mb-5">
-                        <h2 className="font-extrabold text-[17px]">
-                            报价说明:
-                        </h2>
-                        <PricingTable />
-                    </section>
-                    <section>
-                        <Footer />
-                    </section>
-                </div>
-                <div className="px-10 py-4 border-l-2 border-l-blue-800 min-w-[210mm]">
-                    <article className="flex h-fit w-full">
-                        <BasicInfo />
-                        <Instruction />
-                    </article>
-                    <article>
-                        <InvoiceDetail />
-                    </article>
-                </div>
-            </main>
+            <div>
+                <Button
+                    className="w-full rounded-none cursor-pointer bg-purple-400 hover:bg-purple-600 hover:text-white font-bold py-2 px-4 mb-5 text-white"
+                    onClick={reactToPrintFn}
+                    variant="outline"
+                    size="lg"
+                >
+                    <Printer className="mr-2" size={16} /> 打印 / 下载
+                    <Download className="ml-2" size={16} />
+                </Button>
+                <main className="flex">
+                    <div className="w-[210mm] px-6 py-4" ref={contentRef}>
+                        <section className="flex flex-col items-center justify-center">
+                            <TitleInfo />
+                        </section>
+                        <section>
+                            <PersonalInfo />
+                        </section>
+                        <section className="mb-3">
+                            <h2 className="font-extrabold text-[17px]">
+                                故障说明:
+                            </h2>
+                            <MaintenanceInstructionTable />
+                        </section>
+                        <section className="mb-5">
+                            <h2 className="font-extrabold text-[17px]">
+                                报价说明:
+                            </h2>
+                            <PricingTable />
+                        </section>
+                        <section>
+                            <Footer />
+                        </section>
+                    </div>
+                    <div className="px-10 py-4 border-l-2 border-l-purple-600 min-w-[210mm]">
+                        <article className="flex h-fit w-full">
+                            <BasicInfo />
+                            <Instruction />
+                        </article>
+                        <article>
+                            <InvoiceDetail />
+                        </article>
+                    </div>
+                </main>
+            </div>
         </FormProvider>
     );
 }
