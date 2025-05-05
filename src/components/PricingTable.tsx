@@ -142,7 +142,9 @@ export default function PricingTable() {
     // Add 13% tax
     let taxRate = 0.13;
 
-    if (fctTax) {
+    const isFctTax = fctTax === "true" ? true : false;
+
+    if (isFctTax) {
         taxRate += 0.05; // Add 5% FCT tax if applicable
     }
 
@@ -222,7 +224,9 @@ export default function PricingTable() {
                 <TableRow className="bg-[#fff]">
                     <TableCell colSpan={3}></TableCell>
                     <TableCell className="text-[13px] text-left border border-black">
-                        {fctTax ? "总价 (含税 13% + 5%FCT)" : "总价 (含税 13%)"}
+                        {isFctTax
+                            ? "总价 (含税 13% + 5%FCT)"
+                            : "总价 (含税 13%)"}
                     </TableCell>
                     <TableCell
                         colSpan={2}

@@ -1,11 +1,15 @@
 import { CalenderColumn } from "./common/CalenderColumn";
 import { InputColumn } from "./common/InputColumn";
 import { SelectColumn } from "./common/SelectColumn";
-import { currencyItems, serviceItems } from "./lib/constant";
-import { useFormContext } from "react-hook-form";
+import { currencyItems, fctTaxOption, serviceItems } from "./lib/constant";
+import { useFormContext, useWatch } from "react-hook-form";
 
 export default function BasicInfo() {
     const { control } = useFormContext();
+    const currencyType = useWatch({
+        control,
+        name: "currencyType",
+    });
 
     return (
         <section className="pr-10">
@@ -71,6 +75,17 @@ export default function BasicInfo() {
                 control={control}
                 name="currencyType"
             />
+
+            {currencyType === "美元" && (
+                <SelectColumn
+                    title="FCT税"
+                    placeholder="请选择是否包含FCT税"
+                    dropdownItems={fctTaxOption}
+                    selectorClassName="w-70"
+                    control={control}
+                    name="fctTax"
+                />
+            )}
 
             <CalenderColumn
                 title="日期"

@@ -1,22 +1,26 @@
 export const serviceItems = [
-    "设备维护",
-    "设备维修",
-    "设备保养",
-    "设备清洁",
-    "设备升级",
-    "设备更换",
-    "其他",
+    { label: "设备维护", value: "设备维护" },
+    { label: "设备维修", value: "设备维修" },
+    { label: "设备保养", value: "设备保养" },
+    { label: "设备清洁", value: "设备清洁" },
+    { label: "设备升级", value: "设备升级" },
+    { label: "设备更换", value: "设备更换" },
+    { label: "其他", value: "其他" },
+];
+export const currencyItems = [
+    { label: "人民币", value: "人民币" },
+    { label: "美元", value: "美元" },
+    { label: "欧元", value: "欧元" },
+    { label: "英镑", value: "英镑" },
+    { label: "日元", value: "日元" },
+    { label: "新加坡元", value: "新加坡元" },
+    { label: "港币", value: "港币" },
+    { label: "澳大利亚元", value: "澳大利亚元" },
 ];
 
-export const currencyItems = [
-    "人民币",
-    "美元",
-    "欧元",
-    "英镑",
-    "日元",
-    "新加坡元",
-    "港币",
-    "澳大利亚元",
+export const fctTaxOption = [
+    { label: "包含FCT税", value: "true" },
+    { label: "不包含FCT税", value: "false" },
 ];
 
 export const currencySymbols: Record<string, string> = {

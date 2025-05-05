@@ -27,7 +27,7 @@ export function SelectColumn({
     title: string;
     value?: string;
     placeholder?: string;
-    dropdownItems?: string[];
+    dropdownItems?: { label: string; value: string }[];
     name?: string;
     control?: any;
 }) {
@@ -55,8 +55,8 @@ export function SelectColumn({
                         </SelectTrigger>
                         <SelectContent>
                             {dropdownItems?.map((item, index) => (
-                                <SelectItem key={index} value={item}>
-                                    {item}
+                                <SelectItem key={index} value={item.value}>
+                                    {item.label}
                                 </SelectItem>
                             ))}
                         </SelectContent>
